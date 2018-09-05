@@ -62,7 +62,7 @@ $list = (new Mysql())->select($sql);
             <div class="page-header" style="margin-bottom: 20px;margin-right: 50px;">
                 <form action="" method="get">
 
-                    <input type="button" class="btn btn-sm btn-round btn-info pull-right" style="margin-left:20px;width:50px;" value="导出" onclick="exportUser()">
+                    <a href="exportUser.php" class="btn btn-sm btn-round btn-info pull-right" style="margin-left:20px;width:50px;">导出</a>
 
                     <button class="btn btn-sm btn-round btn-info pull-right"  style="margin-left:20px;width:50px;"  type="submit">
                         查询
@@ -146,20 +146,3 @@ $list = (new Mysql())->select($sql);
 </div><!-- /.main-container -->
 </body>
 </html>
-<script>
-    var exportUser = function(){
-        var submit = true;
-        if(submit){
-            submit = false;
-            $.post('',
-                {},
-                function(res){
-                    layer.msg(res.message);
-                    if(res.s === 0){
-                        location.href=res.url;
-                    }
-                    submit = true;
-                },'json');
-        }
-    }
-</script>
