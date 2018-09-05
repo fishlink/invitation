@@ -33,8 +33,12 @@ class Mysql implements DbConnect{
         // TODO: Implement select() method.
         $set = $this->query($sql);
         if(!$set)return false;
-        $result = mysqli_fetch_assoc($set);
-        return $result;
+        $array = array();
+        while ($res = mysqli_fetch_assoc($set)){
+            $array[] = $res;
+        }
+
+        return $array;
     }
 
     public function update($sql)
