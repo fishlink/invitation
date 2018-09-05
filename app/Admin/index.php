@@ -1,6 +1,10 @@
 <?php
 include_once '../../mysql/Mysql.php';
+$keyword = isset($_GET['sk'])?trim($_GET['sk']):'';
 $sql = "select `id`,`realname`,`mobile`,`add_time` from `user` order by `id` DESC";
+if($keyword){
+    $sql = "select `id`,`realname`,`mobile`,`add_time` from `user` where `realname` like '{$keyword}%' or `mobile` like '{$keyword}%' order by `id` DESC";
+}
 $list = (new Mysql())->select($sql);
 ?>
 <!DOCTYPE html>
@@ -53,6 +57,21 @@ $list = (new Mysql())->select($sql);
 
     <div class="main-content">
         <div class="main-content-inner">
+
+            <div class="page-header" style="margin-bottom: 20px;margin-right: 50px;">
+                <form action="" method="get">
+
+                    <input type="button" class="btn btn-sm btn-round btn-info pull-right" style="margin-left:20px;width:50px;" value="导出" onclick="exportFaultSheet()">
+
+                    <button class="btn btn-sm btn-round btn-info pull-right"  style="margin-left:20px;width:50px;"  type="submit">
+                        查询
+                    </button>
+
+                    <span class="pull-right" style="margin-left: 20px;">
+                        <input type="text" name="sk" class="pull-right" style="margin-left: 10px;" placeholder="请输入姓名或手机号" value="<?php echo trim($keyword)?>">
+                    </span>
+                </form>
+            </div>
 
             <div class="page-content">
                 <div class="row">
