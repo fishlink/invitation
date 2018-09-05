@@ -12,6 +12,7 @@ $list = (new Mysql())->select($sql);
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
+    <script src="../Wap/assets/vendor/jquery-2.1.4.min.js"></script>
     <title>管理后台</title>
 
     <meta name="description" content="Static &amp; Dynamic Tables" />
@@ -61,7 +62,7 @@ $list = (new Mysql())->select($sql);
             <div class="page-header" style="margin-bottom: 20px;margin-right: 50px;">
                 <form action="" method="get">
 
-                    <input type="button" class="btn btn-sm btn-round btn-info pull-right" style="margin-left:20px;width:50px;" value="导出" onclick="exportFaultSheet()">
+                    <input type="button" class="btn btn-sm btn-round btn-info pull-right" style="margin-left:20px;width:50px;" value="导出" onclick="exportUser()">
 
                     <button class="btn btn-sm btn-round btn-info pull-right"  style="margin-left:20px;width:50px;"  type="submit">
                         查询
@@ -145,3 +146,20 @@ $list = (new Mysql())->select($sql);
 </div><!-- /.main-container -->
 </body>
 </html>
+<script>
+    var exportUser = function(){
+        var submit = true;
+        if(submit){
+            submit = false;
+            $.post('',
+                {},
+                function(res){
+                    layer.msg(res.message);
+                    if(res.s === 0){
+                        location.href=res.url;
+                    }
+                    submit = true;
+                },'json');
+        }
+    }
+</script>
