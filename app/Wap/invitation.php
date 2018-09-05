@@ -11,6 +11,7 @@ $sql = "select `id` from `user` where `mobile` = '{$mobile}' limit 1";
 $res = (new Mysql())->select($sql);
 if($res)die(json_encode(['s'=>10000,'message'=>'改手机号已经报名成功']));
 
+date_default_timezone_set('PRC'); //设置中国时区
 $now = date('Y-m-d H:i:s');
 $sql = "insert into `user` (`realname`,`mobile`,`update_time`,`add_time`) value ('{$realname}','{$mobile}','{$now}','{$now}')";
 $res = (new Mysql())->add($sql);
