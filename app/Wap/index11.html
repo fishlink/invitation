@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=auto">
+    <script src="./assets/vendor/jquery-2.1.4.min.js"></script>
+    <title>活动报名</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        button {
+            outline: none;
+            border: none;
+        }
+        html {
+            font-size: 62.5%;
+        }
+        main {
+            background-color: #F7F1EC;
+            padding-bottom: 2rem;
+        }
+        main .banner{
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+        main .wrapper{
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+        main .wrapper .title{
+            font-size: 18px;
+            color: #EA949C;
+        }
+        main .wrapper .line{
+            width: 100%;
+            height: .5rem;
+        }
+        main .form-wrapper .form{
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 0;
+        }
+        main .form-wrapper .form input{
+            -webkit-appearance: none;
+            outline: none;
+            border: none;
+            border-radius: 64px;
+            font-size: 16px;
+            color: #9FA0A0;
+            background-color: #ffffff;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        main .form-wrapper .form .submit-btn{
+            color: #ffffff;
+            background-color: #EA949C;
+            padding: 1rem;
+            border-radius: 64px;
+            font-size: 16px;
+        }
+        main .rules-wrapper .rules{
+            padding: 1rem 0;
+        }
+        main .rules-wrapper .rules .rule{
+            color: #9FA0A0;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        main .rules-wrapper .rules .rule:last-child{
+            margin-bottom: 0;
+        }
+        main .rules-wrapper .rules .rule.bold{
+            color: #595757;
+            font-weight: bold;
+        }
+        main .prize-wrapper .prize{
+            width: 100%;
+        }
+        main .back-btn{
+            display: block;
+            width: 40%;
+            margin: 0 auto;
+            color: #EA949C;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #EA949C;
+            border-radius: 64px;
+            padding: .6rem;
+            background-color: #F7F1EC;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <img class="banner" src="./assets/images/whole-banner.jpg" alt="banner">
+    <section class="wrapper form-wrapper" id="signUp">
+        <h2 class="title">填写报名信息</h2>
+        <img class="line" src="./assets/images/line.jpg" alt="line">
+        <div class="form">
+            <input class="name" type="text" placeholder="请输入您的姓名" />
+            <input class="phone" type="tel" placeholder="请输入电话号码" maxlength="11"/>
+            <input type="button" class="submit-btn" value="我要报名" onclick="submit()">
+            <!--<button class="submit-btn" type="button" onclick="submit()">我要报名</button>-->
+        </div>
+    </section>
+    <section class="wrapper rules-wrapper">
+        <h3 class="title">关于活动</h3>
+        <img class="line" src="./assets/images/line.jpg" alt="line">
+        <ul class="rules">
+            <li class="rule">活动时间：2018年9月15-16日</li>
+            <li class="rule">参与资格：填写个人信息获得专属邀请函，到上海世纪汇广场斯品家居门店，即可免费参与以上活动。</li>
+            <li class="rule">活动地址：上海市浦东新区世纪大道1192号世纪汇广场LG2层026+028号</li>
+            <li class="rule bold">活动形式：时尚美甲，糕点烘焙，多肉种植，素描画像。线上报名的成功的vip，还可到店获得以下专属优惠。</li>
+            <li class="rule bold">本次活动最终解释权归斯品家居所有。</li>
+        </ul>
+    </section>
+    <div class="wrapper prize-wrapper">
+        <img class="prize" src="./assets/images/prize.jpg" alt="prize">
+    </div>
+    <button class="back-btn" onclick="javascript:location.href='#signUp'">返回报名</button>
+</main>
+</body>
+</html>
+<script>
+function submit(){
+    var realname = $('.name').val();
+    var mobile = $('.phone').val();
+    if(!realname){
+        alert('请输入您的姓名！');
+        return false;
+    }
+    if(!mobile){
+        alert('请输入您的手机号码！');
+        return false;
+    }
+    var submit = true;
+    if(submit){
+        submit = false;
+        $.post(
+            './invitation.php',
+            {realname:realname,mobile:mobile},
+            function(res){
+                alert(res.message);
+                if(res.s==0){
+                    $('.name').val('');
+                    $('.phone').val('');
+                }else{
+                    submit = true;
+                }
+            },'json'
+        );
+    }
+}
+</script>
