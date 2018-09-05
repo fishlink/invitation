@@ -1,4 +1,10 @@
 <?php
+session_start();
+$admin = isset($_SESSION['admin'])?$_SESSION['admin']:'';
+if(!$admin){
+    header('location:login.php');
+}
+
 include_once '../../mysql/Mysql.php';
 $keyword = isset($_GET['sk'])?trim($_GET['sk']):'';
 $sql = "select `realname`,`mobile` from `user` order by `id` DESC";

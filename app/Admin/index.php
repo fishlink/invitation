@@ -1,4 +1,10 @@
 <?php
+session_start();
+$admin = isset($_SESSION['admin'])?$_SESSION['admin']:'';
+if(!$admin){
+    header('location:login.php');
+}
+
 include_once '../../mysql/Mysql.php';
 $keyword = isset($_GET['sk'])?trim($_GET['sk']):'';
 $sql = "select `id`,`realname`,`mobile`,`add_time` from `user` order by `id` DESC";
@@ -12,7 +18,6 @@ $list = (new Mysql())->select($sql);
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <script src="../Wap/assets/vendor/jquery-2.1.4.min.js"></script>
     <title>管理后台</title>
 
     <meta name="description" content="Static &amp; Dynamic Tables" />
@@ -46,7 +51,9 @@ $list = (new Mysql())->select($sql);
                 </small>
             </a>
         </div>
-        <input type="button" class="btn btn-primary btn-danger" style="float: right;" value="退出登录">
+        <a href="logout.php" class="btn btn-primary btn-danger" style="float: right;">
+            退出登录
+        </a>
     </div><!-- /.navbar-container -->
 </div>
 
